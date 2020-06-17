@@ -8,4 +8,14 @@
     <string name="textview">TextView</string>
     <string name="credentials">Ahmad, Afrasiyab 4/27/20</string>
     <string name="signupapp">SignUpApp!</string>
+    <string name="thank_you">"Thank you\u0020"</string>
+    <string name="test_name">aabbcc</string>
+    <string name="stringForUse">"\u0020for signing up"</string>
+    <string name="date_picker">date picker</string>
+    <string name="not_18">Not 18</string>
+    <string name="name_cannot_be_empty">Name cannot be empty</string>
+    <string name="invalid_email">invalid email</string>
+    <string name="username_cannot_be_empty">username cannot be empty</string>
+    <string name="dateOfBirth_cannot_be_empty">dateOfBirth cannot be empty</string>
+    <string name="go_back">Go Back</string>
 </resources>

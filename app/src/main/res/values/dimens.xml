@@ -2,4 +2,16 @@
 <resources>
     <dimen name="titleTextSize">30sp</dimen>
     <dimen name="navBarTextSize">20sp</dimen>
+    <dimen name="vertical_email">0.561</dimen>
+    <dimen name="text_size_textView">30sp</dimen>
+    <item name="vertical_bias" type="dimen" format="float">0.05</item>
+    <item name="vertical_title" type="dimen" format="float">0.169</item>
+    <item name="vertical_name" type="dimen" format="float">0.459</item>
+    <item name="vertical_username" type="dimen" format="float">0.648</item>
+    <item name="dateOfBirth" type="dimen" format="float">0.737</item>
+    <item name="button" type="dimen" format="float">0.498</item>
+    <item name="vertical_button" type="dimen" format="float">0.945</item>
+    <item name="vertical_bias_textView" type="dimen" format="float">0.304</item>
+    <item name="horizontal_button2" type="dimen" format="float">0.498</item>
+    <item name="vertical_button2" type="dimen" format="float">0.711</item>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.signupform;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -24,16 +26,23 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     private String username ="";
     private String dateOfBirth ="";
 
+    private EditText nameEdit, emailEdit, usernameEdit, dateEdit;
+    private TextView nav, title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        EditText txt4 = findViewById(R.id.dateOfBirth);
-        txt4.setOnClickListener(new View.OnClickListener() {
+        nameEdit =(EditText)findViewById(R.id.name);
+        emailEdit =(EditText) findViewById(R.id.email);
+        usernameEdit = (EditText) findViewById(R.id.username);
+        nav = findViewById(R.id.nav);
+        title = findViewById(R.id.title);
+        dateEdit = findViewById(R.id.dateOfBirth);
+        dateEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(), "date picker");
+                datePicker.show(getSupportFragmentManager(), getString(R.string.date_picker));
             }
         });
     }
@@ -44,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         Calendar c = Calendar.getInstance();
 
         if (year >= 2003) {
-            Toast.makeText(this, "Not 18", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.not_18, Toast.LENGTH_LONG).show();
             return;
         } else {
             c.set(Calendar.YEAR, year);
@@ -56,17 +65,60 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        EditText txt1 = (EditText)findViewById(R.id.name);
-        EditText txt2 = (EditText)findViewById(R.id.email);
-        EditText txt3 = (EditText)findViewById(R.id.username);
-        EditText txt4 = (EditText)findViewById(R.id.dateOfBirth);
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState.containsKey(Constants.KEY_NAME)) {
+            nameEdit.setText((String)savedInstanceState.get(Constants.KEY_NAME));
+        }
+
+        if (savedInstanceState.containsKey(Constants.KEY_USERNAME)) {
+            usernameEdit.setText((String)savedInstanceState.get(Constants.KEY_USERNAME));
+        }
+
+        if (savedInstanceState.containsKey(Constants.KEY_EMAIL)) {
+            emailEdit.setText((String)savedInstanceState.get(Constants.KEY_EMAIL));
+        }
+
+        if (savedInstanceState.containsKey(Constants.KEY_DATE)) {
+            dateEdit.setText((String)savedInstanceState.get(Constants.KEY_DATE));
+        }
+
+        if (savedInstanceState.containsKey(Constants.KEY_NAV)) {
+            nav.setText((String)savedInstanceState.get(Constants.KEY_NAV));
+        }
+
+        if (savedInstanceState.containsKey(Constants.KEY_TITLE)) {
+            title.setText((String)savedInstanceState.get(Constants.KEY_TITLE));
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.KEY_USERNAME, usernameEdit.getText().toString());
+        outState.putString(Constants.KEY_EMAIL, emailEdit.getText().toString());
+        outState.putString(Constants.KEY_NAME, nameEdit.getText().toString());
+        outState.putString(Constants.KEY_DATE,dateEdit.getText().toString());
+        outState.putString(Constants.KEY_NAV, nav.getText().toString());
+        outState.putString(Constants.KEY_TITLE,title.getText().toString());
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        EditText txt1 = findViewById(R.id.name);
+        EditText txt2 = findViewById(R.id.email);
+        EditText txt3 = findViewById(R.id.username);
+        EditText txt4 = findViewById(R.id.dateOfBirth);
         txt1.setText("");
         txt2.setText("");
         txt3.setText("");
         txt4.setText("");
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     public void goToSecondActivity(View view) {
@@ -80,21 +132,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         dateOfBirth = txt4.getText().toString();
 
         while (name.isEmpty()) {
-            txt1.setError("Name cannot be empty");
+            txt1.setError(getString(R.string.name_cannot_be_empty));
             return;
         }
 
          while((email.isEmpty()) || (!email.matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+"))) {
-            txt2.setError("invalid email");
+            txt2.setError(getString(R.string.invalid_email));
             return;
         }
 
         while (username.isEmpty()) {
-            txt3.setError("username cannot be empty");
+            txt3.setError(getString(R.string.username_cannot_be_empty));
             return;
         }
         while ((dateOfBirth.isEmpty())) {
-            txt4.setError("dateOfBirth cannot be empty");
+            txt4.setError(getString(R.string.dateOfBirth_cannot_be_empty));
             return;
         }
 
